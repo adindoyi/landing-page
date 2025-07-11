@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analytics Dashboard - Marketplace UMKM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[#0f587b] text-white min-h-screen p-6">
+    <h2 class="text-2xl font-bold mb-8">Admin Panel</h2>
+    <nav class="space-y-4">
+      <a href="dashboard-admin.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-house"></i><span>Dashboard</span>
+      </a>
+      <a href="manajamen-vendor.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-users"></i><span>Manajemen Vendor</span>
+      </a>
+      <a href="report-penjualan.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-chart-bar"></i><span>Report Penjualan</span>
+      </a>
+      <a href="moderasi-produk.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-shield-check"></i><span>Moderasi Produk</span>
+      </a>
+      <a href="analytics.html" class="flex items-center space-x-2 bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-graph"></i><span>Analytics</span>
+      </a>
+      <a href="index.html" class="flex items-center space-x-2 text-red-200 hover:bg-red-600 px-3 py-2 rounded transition">
+        <i class="ph ph-sign-out"></i><span>Keluar</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <h1 class="text-3xl font-bold mb-2">Analytics Dashboard</h1>
+    <p class="text-gray-600 mb-6">Lihat insight performa Marketplace UMKM secara real-time.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Chart 1 -->
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Jumlah Vendor & Pembeli</h2>
+        <canvas id="vendorBuyerChart" height="200"></canvas>
+      </div>
+
+      <!-- Chart 2 -->
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Penjualan Bulanan</h2>
+        <canvas id="salesChart" height="200"></canvas>
+      </div>
+
+      <!-- Chart 3 -->
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Kategori Produk Terlaris</h2>
+        <canvas id="productCategoryChart" height="200"></canvas>
+      </div>
+
+      <!-- Chart 4 -->
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Performa Vendor</h2>
+        <canvas id="vendorPerformanceChart" height="200"></canvas>
+      </div>
+
+      <!-- Chart 5: Tren Pengguna Baru -->
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Pengguna Baru per Bulan</h2>
+        <canvas id="newUsersChart" height="200"></canvas>
+      </div>
+
+      <!-- Chart 6: Sumber Trafik -->
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Sumber Trafik Marketplace</h2>
+        <canvas id="trafficSourceChart" height="200"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Chart: Vendor & Buyer
+    const ctx1 = document.getElementById('vendorBuyerChart').getContext('2d');
+    new Chart(ctx1, {
+      type: 'doughnut',
+      data: {
+        labels: ['Vendor', 'Pembeli'],
+        datasets: [{
+          data: [25, 120],
+          backgroundColor: ['#0f587b', '#1a6d96'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+
+    // Chart: Penjualan Bulanan
+    const ctx2 = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Penjualan',
+          data: [5000000, 7500000, 8000000, 9000000, 10000000, 12000000, 15000000],
+          borderColor: '#0f587b',
+          backgroundColor: 'rgba(15, 88, 123, 0.1)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    // Chart: Kategori Produk Terlaris
+    const ctx3 = document.getElementById('productCategoryChart').getContext('2d');
+    new Chart(ctx3, {
+      type: 'bar',
+      data: {
+        labels: ['Fashion', 'Makanan', 'Kerajinan', 'Minuman'],
+        datasets: [{
+          label: 'Jumlah Terjual',
+          data: [120, 200, 90, 150],
+          backgroundColor: ['#0f587b', '#1a6d96', '#3fa9f5', '#7bc4f9']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    // Chart: Performa Vendor
+    const ctx4 = document.getElementById('vendorPerformanceChart').getContext('2d');
+    new Chart(ctx4, {
+      type: 'polarArea',
+      data: {
+        labels: ['Batik Palangkaraya', 'Kopi Kalteng', 'Kerajinan Rotan'],
+        datasets: [{
+          data: [300, 450, 250],
+          backgroundColor: ['#0f587b', '#1a6d96', '#3fa9f5']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+
+    // Chart: Pengguna Baru
+    const ctx5 = document.getElementById('newUsersChart').getContext('2d');
+    new Chart(ctx5, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Pengguna Baru',
+          data: [50, 70, 60, 80, 90, 120, 150],
+          borderColor: '#1a6d96',
+          backgroundColor: 'rgba(26, 109, 150, 0.1)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    // Chart: Sumber Trafik
+    const ctx6 = document.getElementById('trafficSourceChart').getContext('2d');
+    new Chart(ctx6, {
+      type: 'pie',
+      data: {
+        labels: ['Google', 'Sosial Media', 'Email Marketing', 'Direct'],
+        datasets: [{
+          data: [40, 30, 15, 15],
+          backgroundColor: ['#0f587b', '#1a6d96', '#3fa9f5', '#7bc4f9']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+  </script>
+
+</body>
+</html>

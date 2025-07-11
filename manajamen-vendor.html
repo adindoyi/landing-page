@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manajemen Vendor - Marketplace UMKM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[#0f587b] text-white min-h-screen p-6">
+    <h2 class="text-2xl font-bold mb-8">Admin Panel</h2>
+    <nav class="space-y-4">
+      <a href="dashboard-admin.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-house"></i><span>Dashboard</span>
+      </a>
+      <a href="manajamen-vendor.html" class="flex items-center space-x-2 bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-users"></i><span>Manajemen Vendor</span>
+      </a>
+      <a href="report-penjualan.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-chart-bar"></i><span>Report Penjualan</span>
+      </a>
+      <a href="moderasi-produk.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-shield-check"></i><span>Moderasi Produk</span>
+      </a>
+      <a href="analytics.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-graph"></i><span>Analytics</span>
+      </a>
+      <a href="login.html" class="flex items-center space-x-2 text-red-200 hover:bg-red-600 px-3 py-2 rounded transition">
+        <i class="ph ph-sign-out"></i><span>Keluar</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <h1 class="text-3xl font-bold mb-2">Manajemen Vendor</h1>
+    <p class="text-gray-600 mb-6">Kelola daftar vendor terdaftar di Marketplace UMKM.</p>
+
+    <!-- Search & Actions -->
+    <div class="flex justify-between mb-4">
+      <div>
+        <input type="text" placeholder="Cari vendor..." class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0f587b]">
+      </div>
+      <button class="bg-[#0f587b] hover:bg-[#1a6d96] text-white px-4 py-2 rounded flex items-center space-x-2">
+        <i class="ph ph-plus"></i>
+        <span>Tambah Vendor</span>
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto bg-white rounded shadow">
+      <table class="min-w-full text-left">
+        <thead class="bg-[#0f587b] text-white">
+          <tr>
+            <th class="px-6 py-3 text-sm font-semibold uppercase tracking-wider">Nama Toko</th>
+            <th class="px-6 py-3 text-sm font-semibold uppercase tracking-wider">Email</th>
+            <th class="px-6 py-3 text-sm font-semibold uppercase tracking-wider">Status</th>
+            <th class="px-6 py-3 text-sm font-semibold uppercase tracking-wider">Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap">Toko Batik Palangkaraya</td>
+            <td class="px-6 py-4 whitespace-nowrap">batik@example.com</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap space-x-2">
+              <button class="px-3 py-1 bg-yellow-400 hover:bg-yellow-500 text-white rounded text-sm">Edit</button>
+              <button class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm">Hapus</button>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap">Kerajinan Rotan</td>
+            <td class="px-6 py-4 whitespace-nowrap">rotan@example.com</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap space-x-2">
+              <button class="px-3 py-1 bg-yellow-400 hover:bg-yellow-500 text-white rounded text-sm">Edit</button>
+              <button class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm">Hapus</button>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap">Kopi Lokal Kalteng</td>
+            <td class="px-6 py-4 whitespace-nowrap">kopi@example.com</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap space-x-2">
+              <button class="px-3 py-1 bg-yellow-400 hover:bg-yellow-500 text-white rounded text-sm">Edit</button>
+              <button class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm">Hapus</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+</body>
+</html>

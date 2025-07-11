@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marketplace UMKM - Chat Detail</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-[#0f587b] to-[#4087a9] text-white px-6 py-4 shadow flex items-center space-x-4">
+    <a href="chat.html" class="text-white">&larr; Kembali</a>
+    <h1 class="text-xl font-semibold flex-1">Toko Kopi Mantap</h1>
+  </header>
+
+  <!-- CHAT AREA -->
+  <main class="max-w-2xl mx-auto py-8 px-4 flex flex-col h-[90vh]">
+    <div id="chat-box" class="flex-1 overflow-y-auto space-y-4 mb-4">
+      <!-- Fake chat dummy -->
+      <div class="flex justify-start">
+        <div class="bg-gray-200 px-4 py-2 rounded-lg max-w-xs">Halo kak, pesanan kopi sudah dikirim ya!</div>
+      </div>
+      <div class="flex justify-end">
+        <div class="bg-[#0f587b] text-white px-4 py-2 rounded-lg max-w-xs">Terima kasih kak, ditunggu ya!</div>
+      </div>
+      <div class="flex justify-start">
+        <div class="bg-gray-200 px-4 py-2 rounded-lg max-w-xs">Siap kak 🙏 semoga suka ya kopinya!</div>
+      </div>
+      <div class="flex justify-end">
+        <div class="bg-[#0f587b] text-white px-4 py-2 rounded-lg max-w-xs">Pasti enak dong! 😁</div>
+      </div>
+    </div>
+
+    <!-- INPUT -->
+    <form id="chat-form" class="flex gap-2">
+      <input id="chat-input" type="text" placeholder="Ketik pesan..." class="flex-1 px-4 py-3 rounded border focus:outline-none">
+      <button type="submit" class="bg-[#0f587b] text-white px-6 py-3 rounded hover:bg-[#08445e]">Kirim</button>
+    </form>
+  </main>
+
+  <script>
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatBox = document.getElementById('chat-box');
+
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (text === '') return;
+
+      // Tambah bubble user
+      const bubble = document.createElement('div');
+      bubble.className = 'flex justify-end';
+      bubble.innerHTML = `<div class="bg-[#0f587b] text-white px-4 py-2 rounded-lg max-w-xs">${text}</div>`;
+      chatBox.appendChild(bubble);
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      chatInput.value = '';
+
+      // Fake reply
+      setTimeout(() => {
+        const reply = document.createElement('div');
+        reply.className = 'flex justify-start';
+        reply.innerHTML = `<div class="bg-gray-200 px-4 py-2 rounded-lg max-w-xs">Terima kasih sudah chat, kami balas segera ya! 😊</div>`;
+        chatBox.appendChild(reply);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>

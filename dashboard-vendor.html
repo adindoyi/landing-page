@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Vendor - Marketplace UMKM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-r from-[#0f587b] to-[#4087a9] text-white p-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+      <h1 class="text-3xl font-bold mb-4 md:mb-0">Dashboard Vendor</h1>
+      <nav class="space-x-4">
+        <a href="#profil" class="hover:underline">Profil Toko</a>
+        <a href="#produk" class="hover:underline">Produk Lokal</a>
+        <a href="#rating" class="hover:underline">Rating</a>
+        <a href="#chat" class="hover:underline">Chat</a>
+        <a href="login.html" class="bg-white text-[#0f587b] px-4 py-2 rounded hover:bg-gray-200 transition">Keluar</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PROFIL TOKO -->
+  <section id="profil" class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto" data-aos="fade-up">
+      <div class="flex items-center justify-center mb-4">
+        <h2 class="text-3xl font-bold text-center mr-2">Profil Toko</h2>
+        <button id="toggleProfileForm" class="text-[#0f587b] hover:text-[#08445e]">
+          <i class="ph ph-pencil-simple text-2xl"></i>
+        </button>
+      </div>
+      <div id="profileInfo" class="text-center">
+        <img src="assets/toko-kopi.jpg" alt="Foto Toko" class="mx-auto mb-4 w-40 h-40 object-cover rounded-full shadow">
+        <p class="font-semibold">Kopi Lokal Kalteng</span></p>
+        <p id="profileDesc" class="text-gray-600 max-w-2xl mx-auto">Kami menghadirkan kopi terbaik dari pegunungan Kalimantan Tengah, diolah oleh petani lokal dengan penuh cinta dan kearifan lokal.</p>
+      </div>
+      <form id="profileForm" class="bg-gray-50 p-8 rounded shadow max-w-3xl mx-auto mt-8 hidden">
+        <div class="mb-6 text-center">
+          <input type="file" id="storeImage" class="block mx-auto text-center" accept="image/*">
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold">Nama Toko</label>
+          <input type="text" id="storeNameInput" value="Kopi Lokal Kalteng" class="w-full px-4 py-2 border rounded" required>
+        </div>
+        <div class="mb-6">
+          <label class="block mb-2 font-semibold">Cerita Brand</label>
+          <textarea id="storeDescriptionInput" rows="4" class="w-full px-4 py-2 border rounded" required>Kami menghadirkan kopi terbaik dari pegunungan Kalimantan Tengah, diolah oleh petani lokal dengan penuh cinta dan kearifan lokal.</textarea>
+        </div>
+        <button type="submit" class="w-full bg-[#0f587b] text-white py-3 rounded hover:bg-[#08445e] transition">Simpan Profil</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PRODUK LOKAL -->
+  <section id="produk" class="py-20 px-6 bg-white">
+    <div class="max-w-7xl mx-auto" data-aos="fade-up">
+      <div class="flex items-center justify-center mb-4">
+        <h2 class="text-3xl font-bold text-center mr-2">Katalog Produk Lokal</h2>
+        <button id="toggleAddProductForm" class="text-[#0f587b] hover:text-[#08445e]">
+          <i class="ph ph-plus-circle text-2xl"></i>
+        </button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <!-- 6 Produk Dummy -->
+        <template id="productTemplate">
+          <div class="bg-gray-50 p-4 rounded shadow" data-aos="zoom-in">
+            <img src="assets/kopi.jpg" alt="Produk" class="mb-4 rounded">
+            <h3 class="font-semibold mb-2">Nama Produk</h3>
+            <p class="text-gray-500 mb-2">Rp 50.000</p>
+            <p class="text-sm text-green-600">Lokal</p>
+          </div>
+        </template>
+        <script>
+          const container = document.currentScript.parentNode;
+          for (let i = 1; i <= 6; i++) {
+            const t = document.getElementById('productTemplate').content.cloneNode(true);
+            t.querySelector('h3').textContent = `Produk Lokal ${i}`;
+            container.insertBefore(t, document.currentScript);
+          }
+        </script>
+      </div>
+      <form id="addProductForm" class="bg-white p-8 rounded shadow max-w-3xl mx-auto hidden">
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold">Nama Produk</label>
+          <input type="text" placeholder="Nama Produk" class="w-full px-4 py-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold">Kategori</label>
+          <select class="w-full px-4 py-2 border rounded">
+            <option>Pilih Kategori</option>
+            <option>Kopi</option>
+            <option>Snack Lokal</option>
+            <option>Kerajinan</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold">Harga</label>
+          <input type="number" placeholder="Rp" class="w-full px-4 py-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold">Gambar Produk</label>
+          <input type="file" class="w-full px-4 py-2 border rounded bg-white" required>
+        </div>
+        <div class="mb-6">
+          <label class="block mb-2 font-semibold">Deskripsi</label>
+          <textarea placeholder="Deskripsi Produk" class="w-full px-4 py-2 border rounded" rows="4"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-[#0f587b] text-white py-3 rounded hover:bg-[#08445e] transition">Tambah Produk</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- RATING SLIDER -->
+  <section id="rating" class="py-20 px-6 bg-gray-100">
+    <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
+      <h2 class="text-3xl font-bold mb-6">Sistem Rating & Review</h2>
+      <p class="mb-4 text-gray-600">Rating rata-rata: ⭐⭐⭐⭐☆ (4.5)</p>
+      <div id="reviewBox" class="bg-white p-4 rounded shadow max-w-2xl mx-auto">
+        <p id="reviewText" class="text-gray-700 mb-2"></p>
+        <p id="reviewAuthor" class="text-sm text-gray-500"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAT -->
+  <section id="chat" class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
+      <h2 class="text-3xl font-bold mb-6">Chat Seller - Buyer</h2>
+      <div class="bg-gray-50 p-6 rounded shadow max-w-2xl mx-auto text-left">
+        <div class="mb-4">
+          <p class="font-semibold">Pembeli:</p>
+          <p class="text-gray-700 bg-white p-3 rounded mb-2">Apakah stok Kopi Arabika masih ada?</p>
+        </div>
+        <div class="mb-4 text-right">
+          <p class="font-semibold">Anda:</p>
+          <p class="text-gray-700 bg-white p-3 rounded inline-block">Masih ada Kak! Silakan checkout ya 🙌</p>
+        </div>
+        <button class="bg-[#0f587b] text-white px-6 py-3 rounded hover:bg-[#08445e] transition mt-4">Buka Inbox Lengkap</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 px-6 text-center text-gray-500 text-sm">
+    &copy; 2025 Marketplace UMKM Kalimantan Tengah. Semua Hak Dilindungi.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+
+    document.getElementById('toggleProfileForm').onclick = () => {
+      document.getElementById('profileForm').classList.toggle('hidden');
+    };
+    document.getElementById('toggleAddProductForm').onclick = () => {
+      document.getElementById('addProductForm').classList.toggle('hidden');
+    };
+    document.getElementById('profileForm').onsubmit = e => {
+      e.preventDefault();
+      document.getElementById('profileName').textContent = document.getElementById('storeNameInput').value;
+      document.getElementById('profileDesc').textContent = document.getElementById('storeDescriptionInput').value;
+      alert('Profil berhasil disimpan!');
+      e.target.classList.add('hidden');
+    };
+    document.getElementById('addProductForm').onsubmit = e => {
+      e.preventDefault();
+      alert('Produk berhasil ditambahkan!');
+      e.target.classList.add('hidden');
+    };
+
+    const reviews = [
+      '"Kopinya mantap, rasa asli kopi Kalimantan Tengah!" - Budi',
+      '"Packing rapi, pengiriman cepat!" - Sari',
+      '"Aromanya kuat banget, suka!" - Andi',
+      '"Selalu repeat order di sini!" - Dina',
+      '"Support petani lokal, mantap!" - Bayu',
+      '"Rasanya beda dari kopi biasa!" - Lestari'
+    ];
+    let idx = 0;
+    setInterval(() => {
+      const [text, author] = reviews[idx].split(' - ');
+      document.getElementById('reviewText').textContent = text;
+      document.getElementById('reviewAuthor').textContent = `- ${author}`;
+      idx = (idx + 1) % reviews.length;
+    }, 2000);
+  </script>
+</body>
+</html>

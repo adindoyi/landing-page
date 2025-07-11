@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Admin - Marketplace UMKM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[#0f587b] text-white min-h-screen p-6">
+    <h2 class="text-2xl font-bold mb-8">Admin Panel</h2>
+    <nav class="space-y-4">
+      <a href="dashboard-admin.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-house"></i><span>Dashboard</span>
+      </a>
+      <a href="manajamen-vendor.html" class="flex items-center space-x-2 bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-users"></i><span>Manajemen Vendor</span>
+      </a>
+      <a href="report-penjualan.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-chart-bar"></i><span>Report Penjualan</span>
+      </a>
+      <a href="moderasi-produk.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-shield-check"></i><span>Moderasi Produk</span>
+      </a>
+      <a href="analytics.html" class="flex items-center space-x-2 hover:bg-[#1a6d96] px-3 py-2 rounded transition">
+        <i class="ph ph-graph"></i><span>Analytics</span>
+      </a>
+      <a href="index.html" class="flex items-center space-x-2 text-red-200 hover:bg-red-600 px-3 py-2 rounded transition">
+        <i class="ph ph-sign-out"></i><span>Keluar</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <h1 class="text-3xl font-bold mb-2">Selamat Datang, Admin!</h1>
+    <p class="text-gray-600 mb-8">Kelola marketplace UMKM dengan mudah dan cepat.</p>
+
+    <!-- Analytics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <p class="text-gray-500">Total Vendor</p>
+        <h2 class="text-2xl font-bold">25</h2>
+      </div>
+      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <p class="text-gray-500">Total Pembeli</p>
+        <h2 class="text-2xl font-bold">120</h2>
+      </div>
+      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <p class="text-gray-500">Total Penjualan</p>
+        <h2 class="text-2xl font-bold">Rp 150jt</h2>
+      </div>
+      <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <p class="text-gray-500">Pending Moderasi</p>
+        <h2 class="text-2xl font-bold">8</h2>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-lg font-bold mb-4">Statistik Vendor & Pembeli</h2>
+        <canvas id="vendorBuyerChart"></canvas>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-lg font-bold mb-4">Penjualan Bulanan</h2>
+        <canvas id="salesChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Table Vendor -->
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-bold mb-4">Daftar Vendor</h2>
+      <table class="w-full text-left border">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="p-2 border">Nama Toko</th>
+            <th class="p-2 border">Email</th>
+            <th class="p-2 border">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-2 border">Toko Batik Palangkaraya</td>
+            <td class="p-2 border">batik@example.com</td>
+            <td class="p-2 border text-green-600">Aktif</td>
+          </tr>
+          <tr>
+            <td class="p-2 border">Kerajinan Rotan</td>
+            <td class="p-2 border">rotan@example.com</td>
+            <td class="p-2 border text-yellow-600">Pending</td>
+          </tr>
+          <tr>
+            <td class="p-2 border">Kopi Lokal Kalteng</td>
+            <td class="p-2 border">kopi@example.com</td>
+            <td class="p-2 border text-green-600">Aktif</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    // Chart Vendor & Pembeli
+    const ctx1 = document.getElementById('vendorBuyerChart').getContext('2d');
+    new Chart(ctx1, {
+      type: 'doughnut',
+      data: {
+        labels: ['Vendor', 'Pembeli'],
+        datasets: [{
+          label: 'Jumlah',
+          data: [25, 120],
+          backgroundColor: ['#0f587b', '#1a6d96'],
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    // Chart Penjualan Bulanan
+    const ctx2 = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Penjualan',
+          data: [20, 35, 40, 55, 70, 65, 80],
+          fill: false,
+          borderColor: '#0f587b',
+          tension: 0.4
+        }]
+      },
+      options: { responsive: true }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Marketplace UMKM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .role-card {
+      border: 2px solid #ccc;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .role-card.selected {
+      border-color: #0f587b;
+      background-color: #f0f9ff;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#0f587b] to-[#4087a9] text-white">
+
+  <div class="bg-white text-gray-800 rounded-xl shadow-xl p-8 w-full max-w-md relative">
+    <h1 class="text-2xl font-bold mb-2 text-center">Daftar Akun Baru</h1>
+    <p class="text-sm text-center mb-6">Pilih tipe akun Anda</p>
+
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="role-card text-center" data-role="vendor">
+        <i class="ph ph-storefront text-3xl mb-2 text-[#0f587b]"></i>
+        <p class="font-semibold text-sm">Vendor</p>
+      </div>
+      <div class="role-card text-center" data-role="buyer">
+        <i class="ph ph-user text-3xl mb-2 text-[#0f587b]"></i>
+        <p class="font-semibold text-sm">Pembeli</p>
+      </div>
+    </div>
+
+    <form id="registerForm">
+      <input type="hidden" name="role" id="selectedRole" value="">
+
+      <label class="block mb-2 font-semibold">Nama Lengkap</label>
+      <input type="text" id="fullname" placeholder="Nama Lengkap" class="w-full px-4 py-2 border rounded mb-4" required>
+
+      <label class="block mb-2 font-semibold">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" class="w-full px-4 py-2 border rounded mb-4" required>
+
+      <label class="block mb-2 font-semibold">Password</label>
+      <input type="password" id="password" placeholder="******" class="w-full px-4 py-2 border rounded mb-6" required>
+
+      <button type="submit" class="w-full bg-[#0f587b] text-white py-3 rounded hover:bg-[#08445e] transition">Daftar</button>
+    </form>
+
+    <p class="text-center text-sm mt-4">Sudah punya akun? <a href="login.html" class="text-[#0f587b] font-semibold hover:underline">Login di sini</a></p>
+
+    <!-- TOAST -->
+    <div id="toast" class="hidden fixed bottom-6 right-6 bg-green-600 text-white px-6 py-3 rounded shadow-lg flex items-center space-x-2">
+      <i class="ph ph-check-circle text-xl"></i>
+      <span id="toastMsg">Akun berhasil dibuat!</span>
+    </div>
+  </div>
+
+  <script>
+    // Role card selector
+    const cards = document.querySelectorAll('.role-card');
+    const hiddenInput = document.getElementById('selectedRole');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        hiddenInput.value = card.dataset.role;
+      });
+    });
+
+    // Fake register + toast
+    const form = document.getElementById('registerForm');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const role = hiddenInput.value;
+      const fullname = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!role) {
+        alert('Pilih tipe akun terlebih dahulu!');
+        return;
+      }
+
+      // Fake simpan ke localStorage
+      const fakeUser = { role, fullname, email };
+      localStorage.setItem('fakeUser', JSON.stringify(fakeUser));
+
+      // Tampilkan TOAST
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+
+      // Redirect ke login setelah 2 detik
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        window.location.href = 'login.html';
+      }, 2000);
+    });
+  </script>
+
+</body>
+</html>
